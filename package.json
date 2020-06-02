@@ -1,6 +1,6 @@
 {
   "name": "@araki-packages/fetch-all-spread-sheet",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./dist/fetchAllSpreadSheet.js",
   "license": "MIT",
   "module": "./dist/fetchAllSpreadSheet.esm.js",
@@ -28,10 +28,10 @@
   "dependencies": {
     "google-spreadsheet": "^3.0.11"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/araki-packages/fetch-all-spread-sheet"
-  }, 
+  },
   "files": [
     "dist",
     "README.md"
