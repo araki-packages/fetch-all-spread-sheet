@@ -28,7 +28,12 @@
   "dependencies": {
     "google-spreadsheet": "^3.0.11"
   },
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/araki-packages/fetch-all-spread-sheet"
+  }, 
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ]
 }
