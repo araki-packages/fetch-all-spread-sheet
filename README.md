@@ -1,6 +1,6 @@
 # fetch-all-spread-sheet
 
-スプレッドシートを全権取得する
+スプレッドシートを全件取得する
 
 ## Example
 
