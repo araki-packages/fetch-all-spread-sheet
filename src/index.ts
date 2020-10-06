@@ -28,6 +28,7 @@ const loadSheet = async (id: string, credential: ICredential): Promise<any> => {
     sheet = new GoogleSpreadsheet(id);
     await sheet.useServiceAccountAuth(credential);
     await sheet.loadInfo();
+    console.log('load information');
   }
   if (sheet == null) throw new Error('not fetch spreadsheet');
   return sheet;
@@ -35,6 +36,7 @@ const loadSheet = async (id: string, credential: ICredential): Promise<any> => {
 
 const createGetAllSheet = async (id: string, credential: ICredential) => {
   const spreadSheet = await loadSheet(id, credential);
+
   const bookSheets = await Promise.all(
     Object.entries(spreadSheet.sheetsById).map(async ([key, value]) => {
       const table: any = await getValues(value);

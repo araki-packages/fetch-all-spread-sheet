@@ -5,6 +5,7 @@ import babel from '@rollup/plugin-babel';
 const extensions = [ '.js', '.jsx', '.ts', '.tsx' ];
 const packageName = 'fetchAllSpreadSheet';
 
+
 export default {
   input: './src/index.ts',
   output: [
@@ -20,9 +21,7 @@ export default {
     },
   ],
   plugins: [
-    resolve({
-      extensions,
-    }),
+    resolve(),
     commonjs(),
     babel({
       extensions,
