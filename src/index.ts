@@ -34,10 +34,12 @@ const loadSheet = async (id: string, credential: ICredential): Promise<any> => {
   return sheet;
 };
 
-const createGetAllSheet = async (id: string, credential: ICredential) => {
+const createGetAllSheet = async (id: string, credential: ICredential, isDebug: boolean = false) => {
   const spreadSheet = await loadSheet(id, credential);
-  const getSheet = <T>(sheetName: string): Promise<{key: string; title: string; value: T[]}> | undefined => {
-    return Object.entries(spreadSheet.sheetsById)
+  isDebug && console.log(spreadSheet);
+  const getSheet = async <T>(sheetName: string): Promise<{key: string; title: string; value: T[]} | null> => {
+    isDebug && console.log('getSheet : ', sheetName);
+    const sheet = Object.entries(spreadSheet.sheetsById)
       .map(([key, value]) => {
         const title = (value as any).title as string;
         return {
@@ -46,14 +48,17 @@ const createGetAllSheet = async (id: string, credential: ICredential) => {
           value,
         }
       })
-      .filter((val) => val.title === sheetName)
-      .map(async (val) => {
-        const table: any = await getValues(val.value);
-        return {
-          ...val,
-          value: table
-        }
-      })[0];
+      .find((val) => val.title === sheetName);
+    isDebug && console.log('target sheet', sheet);
+    if (sheet == null) return null;
+    const table: any = await getValues(sheet.value);
+    isDebug && console.log('target table', table);
+    const result = {
+      ...sheet,
+      value: table,
+    };
+    isDebug && console.log('result', result);
+    return result;
   };
   return getSheet;
 };
