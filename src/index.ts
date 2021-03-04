@@ -1,4 +1,4 @@
-const {GoogleSpreadsheet} = require('google-spreadsheet');
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
 interface ICredential {
   client_email: string;
@@ -9,7 +9,7 @@ const getValues = async (sheet: any, range?: any): Promise<any> => {
   const rows = await sheet.getRows();
   return rows.map((row: any) => {
     const headers = sheet.headerValues;
-    const record: {[key: string]: string | null} = {};
+    const record: { [key: string]: string | null } = {};
     headers.map((header: any) => {
       try {
         const value = row[header];
@@ -22,14 +22,11 @@ const getValues = async (sheet: any, range?: any): Promise<any> => {
   });
 };
 
-let sheet: any | null = null;
 const loadSheet = async (id: string, credential: ICredential): Promise<any> => {
-  if (sheet == null) {
-    sheet = new GoogleSpreadsheet(id);
-    await sheet.useServiceAccountAuth(credential);
-    await sheet.loadInfo();
-    console.log('load information');
-  }
+  const sheet = new GoogleSpreadsheet(id);
+  await sheet.useServiceAccountAuth(credential);
+  await sheet.loadInfo();
+  console.log('load information');
   if (sheet == null) throw new Error('not fetch spreadsheet');
   return sheet;
 };
@@ -37,7 +34,7 @@ const loadSheet = async (id: string, credential: ICredential): Promise<any> => {
 const createGetAllSheet = async (id: string, credential: ICredential, isDebug: boolean = false) => {
   const spreadSheet = await loadSheet(id, credential);
   isDebug && console.log(spreadSheet);
-  const getSheet = async <T>(sheetName: string): Promise<{key: string; title: string; value: T[]} | null> => {
+  const getSheet = async <T>(sheetName: string): Promise<{ key: string; title: string; value: T[] } | null> => {
     isDebug && console.log('getSheet : ', sheetName);
     const sheet = Object.entries(spreadSheet.sheetsById)
       .map(([key, value]) => {
